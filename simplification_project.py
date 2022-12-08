@@ -46,7 +46,8 @@ def plot_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, gra
     fig = plt.figure()
     fig.subplots(nrows=int(len(y0) / 2), ncols=2)
     for u in range(len(y0)):
-        plt.subplot(int(u / 2), int(u % 2), u)
+        # plt.subplot(int(u / 2), int(u % 2), u)
+        fig.add_subplot()
         plt.plot(tt, y[:, u], label=legend[u])
     plt.legend()
     plt.show()
