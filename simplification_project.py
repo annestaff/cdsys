@@ -42,8 +42,9 @@ legend = ['V', 'I', 'F', 'Cn', 'E', 'Bn', 'P', 'Am']
 def plot_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, graph_step=100000):
     tt = np.linspace(t0, interval, graph_step)
 
-    y = spi.odeint(f, y0, tps)
-
+    y = ddeint(model, lambda t: y0, tt)
+    fig = plt.figure()
+    fig.subplots(nrows=int(len(y0) / 2), ncols=2)
     for u in range(len(y0)):
         plt.subplot(int(u / 2), int(u % 2), u)
         plt.plot(tt, y[:, u], label=legend[u])
