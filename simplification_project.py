@@ -47,14 +47,13 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, grap
 
 
 def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
-    fig = plt.figure()
     for u in range(len(y0)):
-        fig.add_subplot(int(u/2 + 1), int(u % 2 + 1), int(u % 2 + 1))
+        # fig.add_subplot(int(u/2 + 1), int(u % 2 + 1), int(u % 2 + 1))
         plt.plot(tt, y[:, u], label=legend[u])
-    plt.legend()
-    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
+        plt.legend()
+        plt.show()
+    # plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     # fig.set_tight_layout(True)
-    fig.show()
 
 
 my_model = run_model()
