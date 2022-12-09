@@ -9,10 +9,16 @@ T = 7e7
 
 
 def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2, kn=2.5,
-          ke=5e-5, pf=1e-5, delta_f=2, beta_cn=1, hc=1e4, teta_c=6, pc=1.2, delta_e=0.57, beta_bn=0.03, hb=1e4,
-          teta_b=4,
+          ke=5e-5, pf=1e-5, delta_f=2, beta_cn=1, hc=1e4, tau_c=6, pc=1.2, delta_e=0.57, beta_bn=0.03, hb=1e4,
+          tau_b=4,
           delta_p=0.5, pb=0.52, pm=8, delta_m=1.0075):
+
     viral_load, infected_cells, ifn, naive_CD8, effector, naive_B, plasma_cells, antibodies = Y(t)
+    viral_load_tau_c, naive_CD8_tau_c = Y(t-tau_c)
+    viral_load_tau_b, naive_B_tau_b = Y(t - tau_b)
+
+
+
 
     VIRAL_LOAD = pv * infected_cells - delta_v * viral_load - km * antibodies - beta * viral_load * T
 
@@ -22,14 +28,11 @@ def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2,
 
     NAIVE_CD8 = - beta_cn * (viral_load / (viral_load + hc)) * naive_CD8
 
-    EFFECTOR = beta_cn * (viral_load * (t - teta_c) / (viral_load * (t - teta_c) + hc)) * naive_CD8 * (
-            t - teta_c) * exp(
-        pc * teta_c) - delta_e * effector
+    EFFECTOR = beta_cn * (viral_load_tau_c / (viral_load_tau_c + hc)) * naive_CD8_tau_c * exp(pc * tau_c) - delta_e * effector
 
     NAIVE_B = - beta_bn * (viral_load / (viral_load + hb)) * naive_B
-    PLASMA_CELLS = beta_bn * (viral_load * (t - teta_b) / (viral_load * (t - teta_b) + hb)) * naive_B * (
-            t - teta_b) * exp(
-        pb * teta_b) - delta_p * plasma_cells
+
+    PLASMA_CELLS = beta_bn * (viral_load_tau_b/ (viral_load_tau_b + hb)) * naive_B_tau_b * exp(pb * tau_b) - delta_p * plasma_cells
 
     ANTIBODIES = pm * plasma_cells - delta_m * antibodies
 
@@ -39,6 +42,9 @@ def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2,
 legend = ['V', 'I', 'F', 'Cn', 'E', 'Bn', 'P', 'Am']
 
 
+
+
+
 def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, graph_step=10000):
     tt = np.linspace(t0, interval, graph_step)
 
@@ -46,12 +52,14 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, grap
     return {"y0": y0, "tt": tt, "y": y}
 
 
+
+
 def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
     fig = plt.figure()
     for u in range(len(y0)):
         fig.add_subplot(int(u/2 + 1), int(u % 2 + 1), int(u % 2 + 1))
         plt.plot(tt, y[:, u], label=legend[u])
-    plt.legend()
+        plt.legend()
     plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     # fig.set_tight_layout(True)
     fig.show()
