@@ -22,9 +22,8 @@ def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2,
 
     NAIVE_CD8 = - beta_cn * (viral_load / (viral_load + hc)) * naive_CD8
 
-    EFFECTOR = beta_cn * (viral_load * (t - teta_c) / (viral_load * (t - teta_c) + hc)) * naive_CD8 * (
-            t - teta_c) * exp(
-        pc * teta_c) - delta_e * effector
+    EFFECTOR = beta_cn * (viral_load * (t - teta_c) / (viral_load * (t - teta_c) + hc)) * naive_CD8 * \
+               (t - teta_c) * exp(pc * teta_c) - delta_e * effector
 
     NAIVE_B = - beta_bn * (viral_load / (viral_load + hb)) * naive_B
 
@@ -49,12 +48,9 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, grap
 
 def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
     for u in range(len(y0)):
-        # fig.add_subplot(int(u/2 + 1), int(u % 2 + 1), int(u % 2 + 1))
         plt.plot(tt, y[:, u], label=legend[u])
         plt.legend()
         plt.show()
-    # plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
-    # fig.set_tight_layout(True)
 
 
 my_model = run_model()
