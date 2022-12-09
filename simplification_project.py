@@ -10,8 +10,8 @@ T = 7e7
 
 def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2, kn=2.5,
           ke=5e-5, pf=1e-5, delta_f=2, beta_cn=1, hc=1e4, teta_c=6, pc=1.2, delta_e=0.57, beta_bn=0.03, hb=1e4,
-          teta_b=4,
-          delta_p=0.5, pb=0.52, pm=8, delta_m=1.0075):
+          teta_b=4, delta_p=0.5, pb=0.52, pm=8, delta_m=1.0075):
+
     viral_load, infected_cells, ifn, naive_CD8, effector, naive_B, plasma_cells, antibodies = Y(t)
 
     VIRAL_LOAD = pv * infected_cells - delta_v * viral_load - km * antibodies - beta * viral_load * T
@@ -27,6 +27,7 @@ def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2,
         pc * teta_c) - delta_e * effector
 
     NAIVE_B = - beta_bn * (viral_load / (viral_load + hb)) * naive_B
+
     PLASMA_CELLS = beta_bn * (viral_load * (t - teta_b) / (viral_load * (t - teta_b) + hb)) * naive_B * (
             t - teta_b) * exp(
         pb * teta_b) - delta_p * plasma_cells
