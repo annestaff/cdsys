@@ -46,7 +46,6 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=20, gra
     return {"y0": y0, "tt": tt, "y": y}
 
 
-
 def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 20, 10000)):
     '''fig = plt.figure()
     for u in range(len(y0)):
@@ -60,10 +59,10 @@ def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 
     plt.figure(1)
     plt.clf()
     plt.subplot(421)
-    plt.plot(tt, y[:,0], label=legend[0])
+    plt.plot(tt, y[:, 0], label=legend[0])
     plt.legend()
     plt.subplot(422)
-    plt.plot(tt, y[:,1], label=legend[1])
+    plt.plot(tt, y[:, 1], label=legend[1])
     plt.legend()
     plt.subplot(423)
     plt.plot(tt, y[:, 2], label=legend[2])
@@ -84,7 +83,6 @@ def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 
     plt.plot(tt, y[:, 7], label=legend[7])
     plt.legend()
     plt.show()
-
 
 
 my_model = run_model()
