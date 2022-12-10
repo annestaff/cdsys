@@ -46,6 +46,7 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=20, gra
     return {"y0": y0, "tt": tt, "y": y}
 
 
+
 def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 20, 10000)):
     '''fig = plt.figure()
     for u in range(len(y0)):
