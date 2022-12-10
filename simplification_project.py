@@ -39,14 +39,14 @@ def model(Y, t, pv=210, delta_v=5, km=0.6, beta=5e-7, beta_prim=3e-8, delta_i=2,
 legend = ['V', 'I', 'F', 'Cn', 'E', 'Bn', 'P', 'Am']
 
 
-def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, graph_step=10000):
+def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=20, graph_step=10000):
     tt = np.linspace(t0, interval, graph_step)
 
     y = ddeint(model, lambda t: y0, tt)
     return {"y0": y0, "tt": tt, "y": y}
 
 
-def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
+def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 20, 10000)):
     '''fig = plt.figure()
     for u in range(len(y0)):
         fig.add_subplot(int(u / 2 + 1), int(u % 2 + 1), int(u % 2 + 1))
