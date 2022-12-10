@@ -59,6 +59,7 @@ def run_model(y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), t0=0, interv
     return {"y0": y0, "tt": tt, "y": y}
 
 
+
 def plot_model(y, tt=np.linspace(0, 20, 10000)):
     plt.close('all')
     plt.figure(1)
