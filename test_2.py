@@ -46,44 +46,12 @@ def run_model(y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), t0=0, interval=6, grap
     return {"y0": y0, "tt": tt, "y": y}
 
 
-def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
-    '''fig = plt.figure()
-    for u in range(len(y0)):
-        fig.add_subplot(int(u / 2 + 1), int(u % 2 + 1), int(u % 2 + 1))
-        plt.plot(tt, y[:, u], label=legend[u])
-    plt.legend()
-    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
-    fig.set_tight_layout(True)
-    fig.show()'''
-    plt.close('all')
-    plt.figure(1)
-    plt.clf()
-    plt.subplot(421)
-    plt.plot(tt, y[:,0], label=legend[0])
-    plt.legend()
-    plt.subplot(422)
-    plt.plot(tt, y[:,1], label=legend[1])
-    plt.legend()
-    plt.subplot(423)
-    plt.plot(tt, y[:, 2], label=legend[2])
-    plt.legend()
-    plt.subplot(424)
-    plt.plot(tt, y[:, 3], label=legend[3])
-    plt.legend()
-    plt.subplot(425)
-    plt.plot(tt, y[:, 4], label=legend[4])
-    plt.legend()
-    plt.subplot(426)
-    plt.plot(tt, y[:, 5], label=legend[5])
-    plt.legend()
-    plt.subplot(427)
-    plt.plot(tt, y[:, 6], label=legend[6])
-    plt.legend()
-    plt.subplot(428)
-    plt.plot(tt, y[:, 7], label=legend[7])
-    plt.legend()
-    plt.show()
 
+def plot_model(y, y0=np.array([V0, 0, 0, 100, 0, 100, 0, 0]), tt=np.linspace(0, 6, 10000)):
+    for u in range(len(y0)):
+        plt.plot(tt, y[:, u], label=legend[u])
+        plt.legend()
+        plt.show()
 
 
 my_model = run_model()
