@@ -52,7 +52,7 @@ def model(Y, t, pv=210, delta_v=5, kl=0.4, beta=5e-7, gt=0.8, beta_prim=3e-8, rh
 legend = ['V', 'T', 'I', 'F', 'R', 'Cn', 'E', 'Bn', 'P', 'As', 'Al']
 
 
-def run_model(y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), t0=0, interval=12, graph_step=10000):
+def run_model(y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), t0=0, interval=15, graph_step=10000):
     tt = np.linspace(t0, interval, graph_step)
 
     y = ddeint(model, lambda t: y0, tt)
@@ -63,7 +63,7 @@ def run_model(y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), t0=0, interv
 
 
 
-def plot_model_2(y, y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), tt=np.linspace(0, 12, 10000)):
+def plot_model_2(y, y0=np.array([V0, T0, 0, 0, 0, 100, 0, 100, 0, 0, 0]), tt=np.linspace(0, 15, 10000)):
     for u in range(len(y0)):
         plt.plot(tt, y[:, u], label=legend[u])
         plt.legend()
